@@ -27,11 +27,10 @@ let cookieBox = new CookieBox(
     '2020', '09', '27'
 );
 
-console.info('This is your cookie-box'); 
-console.info(cookieBox); 
-console.info(typeof cookieBox.id); 
+// cookieMonster.addCookieBox(cookieBox); 
 
-cookieMonster.addCookieBox(cookieBox); 
+let d = new Date('2020-10-27T04:00:00.000Z'); 
+console.info(d); 
 
 // let queryPromise = container.items.create({
 //     tokens: ['C0', 'C1', 'C2'],
