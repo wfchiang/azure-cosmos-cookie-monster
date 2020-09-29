@@ -2,6 +2,7 @@ const CosmosClient = require('@azure/cosmos').CosmosClient;
 
 const CookieMonster = require('./cookie_monster'); 
 const CookieBox = require('./cookie_box'); 
+const Eating = require('./eating');
 
 const dbConfig = require('./db_config'); 
 
@@ -22,15 +23,44 @@ let cookieMonster = new CookieMonster(
 cookieMonster.init(); 
 
 let cookieBox = new CookieBox(
-    ['C0', 'C101'], 
-    '2020', '09', '25', 
-    '2020', '09', '27'
+    ['C101', 'C201'], 
+    new Date('2020', parseInt('06')-1, '02', 0, 0, 0, 0), 
+    new Date('2020', parseInt('06')-1, '09', 23, 59, 59, 999) 
 );
 
-// cookieMonster.addCookieBox(cookieBox); 
+cookieMonster.addCookieBox(cookieBox).then(
+    res => {
+        console.info('Cookie box created');
+        console.info(res);  
 
-let d = new Date('2020-10-27T04:00:00.000Z'); 
-console.info(d); 
+        let eating = new Eating(
+            res.resource.id, 
+            res.resource.cookies[0], 
+            new Date('2020', parseInt('06')-1, '09', 12, 0, 0, 0),
+            {
+                name: 'Wei-Fan Chiang', 
+                phone: '(801) 717-8054', 
+                email: 'weifan.wf@gmail.com'
+            }
+        ); 
+        
+        cookieMonster.eatCookie(eating).then(
+            res => {
+                console.info('Create eaten'); 
+                console.info(res); 
+            }, 
+            err => {
+                console.error('Cookie gone...'); 
+                console.error(err); 
+            }
+        ); 
+    }, 
+    err => {
+        console.error('Cookie box creation failed'); 
+        console.error(err); 
+    }
+); 
+
 
 // let queryPromise = container.items.create({
 //     tokens: ['C0', 'C1', 'C2'],

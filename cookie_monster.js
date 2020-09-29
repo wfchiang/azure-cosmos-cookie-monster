@@ -26,6 +26,12 @@ class CookieMonster {
 
     async addCookieBox (cookieBox) {
         let res = await this.cookiesContainer.items.create(cookieBox); 
+        return res; 
+    }
+
+    async eatCookie (eating) {
+        let res = await this.monstersContainer.items.create(eating); 
+        return res; 
     }
 } 
 
