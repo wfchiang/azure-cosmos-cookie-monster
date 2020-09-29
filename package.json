@@ -1,0 +1,22 @@
+{
+  "name": "azure-cosmos-cookie-monster",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wfchiang/azure-cosmos-cookie-monster.git"
+  },
+  "author": "Wei-Fan Chiang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wfchiang/azure-cosmos-cookie-monster/issues"
+  },
+  "homepage": "https://github.com/wfchiang/azure-cosmos-cookie-monster#readme",
+  "dependencies": {
+    "@azure/cosmos": "^3.9.2"
+  }
+}
