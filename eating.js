@@ -1,17 +1,15 @@
 class Eating {
     constructor (
         cookie_box_id, 
-        cookie_token, 
-        eating_time, 
-        monster
-    ) {
-        this.cookie = String(cookie_box_id) + ' # ' + String(cookie_token);  
-        this.eating_time = eating_time; 
-        this.monster = {
-            name: monster.name, 
-            phone: monster.phone, 
-            email: monster.email 
-        }; 
+        cookie_id, 
+        monster_id,  
+        eating_time
+    ) 
+    {
+        this.cookie_box_id = cookie_box_id; 
+        this.cookie_id = cookie_id; 
+        this.monster_id = monster_id; 
+        this.eating_time = eating_time;  
     }
 }
 

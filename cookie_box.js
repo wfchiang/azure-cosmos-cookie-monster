@@ -2,14 +2,14 @@
 class CookieBox {
     constructor (
         cookies, 
-        upDate, 
-        downDate) {
-        this.id = String(downDate), 
-        this.cookies = cookies; 
-        this.dates = {
-            up: upDate, 
-            down: downDate
-        }; 
+        timing) 
+    {
+        this.cookies = cookies;
+        this.timing = timing; 
+    }
+
+    toString() {
+        return JSON.stringify(this, '    '); 
     }
 }
 

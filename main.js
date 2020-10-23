@@ -3,6 +3,9 @@ const CosmosClient = require('@azure/cosmos').CosmosClient;
 const CookieMonster = require('./cookie_monster'); 
 const CookieBox = require('./cookie_box'); 
 const Eating = require('./eating');
+const Cookie = require('./cookie');
+const Monster = require('./monster');
+const Timing = require('./timing')
 
 const dbConfig = require('./db_config'); 
 
@@ -17,49 +20,81 @@ let cookieMonster = new CookieMonster(
     cosmosClient, 
     dbConfig.databaseId, 
     dbConfig.containerIds.cookies, 
-    dbConfig.containerIds.monsters
+    dbConfig.containerIds.monsters, 
+    dbConfig.containerIds.cookie_boxes, 
+    dbConfig.containerIds.eating_histories
 ); 
 
 cookieMonster.init(); 
 
-let cookieBox = new CookieBox(
-    ['C101', 'C201'], 
-    new Date('2020', parseInt('06')-1, '02', 0, 0, 0, 0), 
-    new Date('2020', parseInt('06')-1, '09', 23, 59, 59, 999) 
-);
+let monster = new Monster('weifan.wf@gmail.com'); 
+// cookieMonster.addMonster(monster).then(
+//     res => {
+//         console.info('Monster added: ' + monster); 
+//     }, 
+//     err => {
+//         console.error('Failed to add monster: ' + monster); 
+//     }
+// );
 
+let cookies = [new Cookie('A1'), new Cookie('B1')]; 
+// cookies.forEach(c => cookieMonster.addCookie(c).then(
+//     res => {
+//         console.info('Cookie added: ' + c); 
+//     },
+//     err => {
+//         console.error('Failed to add cookie: ' + c); 
+//     }
+// )); 
+
+let creation_time = new Date(2020, parseInt(6)-1, 2, 0, 0, 0, 0); 
+let expiration_time = new Date('2020', parseInt('06')-1, '09', 23, 59, 59, 999);  
+let timing = new Timing(creation_time, expiration_time); 
+let cookieBox = new CookieBox(
+    cookies, 
+    timing); 
 cookieMonster.addCookieBox(cookieBox).then(
     res => {
-        console.info('Cookie box created');
-        console.info(res);  
-
-        let eating = new Eating(
-            res.resource.id, 
-            res.resource.cookies[0], 
-            new Date('2020', parseInt('06')-1, '09', 12, 0, 0, 0),
-            {
-                name: 'Wei-Fan Chiang', 
-                phone: '(801) 717-8054', 
-                email: 'weifan.wf@gmail.com'
-            }
-        ); 
-        
-        cookieMonster.eatCookie(eating).then(
-            res => {
-                console.info('Create eaten'); 
-                console.info(res); 
-            }, 
-            err => {
-                console.error('Cookie gone...'); 
-                console.error(err); 
-            }
-        ); 
+        console.info('CookieBox added: ' + cookieBox); 
     }, 
     err => {
-        console.error('Cookie box creation failed'); 
-        console.error(err); 
+        console.error('Failed to add cookieBox: ' + cookieBox); 
+        console.error(err);
     }
 ); 
+
+// cookieMonster.addCookieBox(cookieBox).then(
+//     res => {
+//         console.info('Cookie box created');
+//         console.info(res);  
+
+//         let eating = new Eating(
+//             res.resource.id, 
+//             res.resource.cookies[0], 
+//             new Date('2020', parseInt('06')-1, '09', 12, 0, 0, 0),
+//             {
+//                 name: 'Wei-Fan Chiang', 
+//                 phone: '(801) 717-8054', 
+//                 email: 'weifan.wf@gmail.com'
+//             }
+//         ); 
+        
+//         cookieMonster.eatCookie(eating).then(
+//             res => {
+//                 console.info('Create eaten'); 
+//                 console.info(res); 
+//             }, 
+//             err => {
+//                 console.error('Cookie gone...'); 
+//                 console.error(err); 
+//             }
+//         ); 
+//     }, 
+//     err => {
+//         console.error('Cookie box creation failed'); 
+//         console.error(err); 
+//     }
+// ); 
 
 
 // let queryPromise = container.items.create({
